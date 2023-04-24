@@ -37,6 +37,7 @@ RSpec.describe "Users API" do
     
     parsed_response = JSON.parse(response.body)
 
+    expect(User.all.count).to eq(1)
     expect(response.status).to eq(400)
     expect(parsed_response["message"]).to eq("Bad Request")
     expect(parsed_response["errors"]).to eq(["Email has already been taken"])
