@@ -13,11 +13,11 @@ RSpec.describe "Users API" do
 
     post "/api/v1/users", headers: headers, params: JSON.generate(user: user_params)
     
-    require 'pry'; binding.pry 
     created_user = User.last 
 
     expect(User.all.count).to eq(1)
     expect(response).to be_successful
+    expect(response.status).to eq(201)
     expect(created_user.email).to eq('amanda@example.com')
   end
 end
