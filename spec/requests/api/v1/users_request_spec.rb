@@ -12,6 +12,8 @@ RSpec.describe "Users API" do
     expect(User.all.count).to eq(0)
 
     post "/api/v1/users", headers: headers, params: JSON.generate(user: user_params)
+    
+    require 'pry'; binding.pry 
     created_user = User.last 
 
     expect(User.all.count).to eq(1)
