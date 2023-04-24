@@ -8,7 +8,9 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :lat
       t.string :long
       t.integer :radius
-      
+      t.string :encrypted_token
+      t.string :encrypted_refresh_token
+
       t.timestamps
     end
   end

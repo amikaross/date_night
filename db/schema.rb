@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 2023_04_24_203044) do
     t.string "lat"
     t.string "long"
     t.integer "radius"
+    t.string "encrypted_token"
+    t.string "encrypted_refresh_token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
