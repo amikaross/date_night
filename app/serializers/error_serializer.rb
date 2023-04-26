@@ -5,4 +5,11 @@ class ErrorSerializer
       "errors": messages
     }
   end
+
+  def self.bad_credentials
+    {
+      "message": "Bad Credentials",
+      "errors": ["Email or password is incorrect."]
+    }
+  end
 end

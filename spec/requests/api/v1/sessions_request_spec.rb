@@ -24,4 +24,42 @@ RSpec.describe "Users API" do
     expect(parsed_response[:data][:type]).to eq("user")
     expect(parsed_response[:data][:attributes][:email]).to eq(user.email)
   end
+
+  it "returns an error if the user doesn't exist" do 
+    5.times { create(:user) }
+    user = create(:user, email: 'amanda@example.com')
+    
+    user_params = {
+      email: 'amanda@not_an_example.com',
+      password: 'password'
+    }
+
+    headers = {"CONTENT_TYPE" => "application/json"}
+
+    post "/api/v1/sessions", headers: headers, params: JSON.generate(user: user_params)
+
+    parsed_response = JSON.parse(response.body, symbolize_names: true)
+    
+    expect(response.status).to eq(400)
+    expect(parsed_response[:message]).to eq("Bad Credentials")
+  end
+
+  it "returns an error if the user exists but the password is incorrect" do 
+    5.times { create(:user) }
+    user = create(:user, email: 'amanda@example.com')
+
+    user_params = {
+      email: 'amanda@example.com',
+      password: 'not_a_password'
+    }
+
+    headers = {"CONTENT_TYPE" => "application/json"}
+
+    post "/api/v1/sessions", headers: headers, params: JSON.generate(user: user_params)
+
+    parsed_response = JSON.parse(response.body, symbolize_names: true)
+    
+    expect(response.status).to eq(400)
+    expect(parsed_response[:message]).to eq("Bad Credentials")
+  end
 end

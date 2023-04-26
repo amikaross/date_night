@@ -3,8 +3,8 @@ class Api::V1::SessionsController < ApplicationController
     user = User.find_by(email: user_params[:email])
     if user && user.authenticate(user_params[:password])
       render json: UserSerializer.new(user), status: :created 
-    else 
-      render json: ErrorSerializer.bad_request(user.errors.full_messages), status: :bad_request
+    else
+      render json: ErrorSerializer.bad_credentials, status: :bad_request
     end
   end
 
