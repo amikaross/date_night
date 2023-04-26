@@ -42,9 +42,4 @@ RSpec.describe "Users API" do
     expect(parsed_response["message"]).to eq("Bad Request")
     expect(parsed_response["errors"]).to eq(["Email has already been taken"])
   end
-
-  it "can login an existing user if sent email/password" do 
-    create(:user, email: 'amanda@example.com')
-
-  end
 end
