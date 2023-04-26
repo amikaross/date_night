@@ -22,7 +22,7 @@ RSpec.describe "Users API" do
   end
 
   it "will return an error if the email is not unique" do 
-    User.create(email: 'amanda@example.com', password: 'password')
+    create(:user, email: 'amanda@example.com')
 
     user_params = {
       email: 'amanda@example.com',
@@ -41,5 +41,10 @@ RSpec.describe "Users API" do
     expect(response.status).to eq(400)
     expect(parsed_response["message"]).to eq("Bad Request")
     expect(parsed_response["errors"]).to eq(["Email has already been taken"])
+  end
+
+  it "can login an existing user if sent email/password" do 
+    create(:user, email: 'amanda@example.com')
+
   end
 end
