@@ -23,6 +23,7 @@ RSpec.describe "Users API" do
     expect(parsed_response[:data][:id].to_i).to eq(user.id)
     expect(parsed_response[:data][:type]).to eq("user")
     expect(parsed_response[:data][:attributes][:email]).to eq(user.email)
+    expect(response.cookies).to have_key("_session_id")
   end
 
   it "returns an error if the user doesn't exist" do 
