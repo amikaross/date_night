@@ -10,8 +10,8 @@ class Api::V1::UsersController < ApplicationController
 
   def show
     user = User.find_by(id: params[:id])
-    
-    if params[:id].to_i == session[:user_id] && user
+
+    if user && user == current_user
       render json: UserSerializer.new(user)
     elsif user.nil? 
       render json: ErrorSerializer.not_found(controller_name.singularize), status: :not_found
