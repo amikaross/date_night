@@ -12,4 +12,11 @@ class ErrorSerializer
       "errors": ["Email or password is incorrect."]
     }
   end
+
+  def self.not_found(resource) 
+    {
+      "message": "Resource Not Found",
+      "errors": ["#{resource} does not exist."]
+    }
+  end
 end

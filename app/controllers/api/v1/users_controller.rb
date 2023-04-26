@@ -8,6 +8,16 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def show
+    if params[:id].to_i == session[:user_id] && user = User.find_by(id: params[:id])
+      render json: UserSerializer.new(user)
+    elsif user.nil? 
+      render json: ErrorSerializer.not_found(controller_name.singularize), status: :not_found
+    else
+      render json: ErrorSerializer.not_authorized, status: :bad_request 
+    end
+  end
+
   private
 
     def user_params
