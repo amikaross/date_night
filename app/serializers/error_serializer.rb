@@ -19,4 +19,11 @@ class ErrorSerializer
       "errors": ["#{resource} does not exist."]
     }
   end
+
+  def self.not_authorized
+    {
+      "message": "Not Authorized",
+      "errors": ["Authorization to access this resource has not been received."]
+    }
+  end
 end

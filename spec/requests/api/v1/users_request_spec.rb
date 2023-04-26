@@ -77,4 +77,15 @@ RSpec.describe "Users API" do
     expect(parsed_response[:message]).to eq("Resource Not Found")
     expect(parsed_response[:errors]).to eq(["user does not exist."])
   end
+
+  it "will return an error if the user has not logged in (the session id does not exist or match)" do 
+    user = create(:user, email: 'amanda@example.com')
+
+    get "/api/v1/users/#{user.id}"
+    
+    parsed_response = JSON.parse(response.body, symbolize_names: true)
+    expect(response.status).to eq(400)
+    expect(parsed_response[:message]).to eq("Not Authorized")
+    expect(parsed_response[:errors]).to eq(["Authorization to access this resource has not been received."])
+  end
 end
